@@ -88,6 +88,17 @@ public class PlayerController : MonoBehaviour
         Vector2 bottomPosition = new Vector2(this.transform.position.x, GetComponent<Collider2D>().bounds.min.y);
         isNearPlatform = Physics2D.Raycast(bottomPosition, Vector2.down, 1f, layerMask);
         Debug.DrawRay(bottomPosition, Vector2.down * 1f, Color.yellow);
+
+        int layerMask = 1 << 8;
+        layerMask = ~layerMask;
+
+        Vector2 rayCastPosition = transform.position;
+        rayCastPosition.y += .5f;
+        isNearPlatform = Physics2D.Raycast(rayCastPosition, transform.TransformDirection(Vector3.down), 1f, layerMask);
+        // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1f, Color.yellow);
+
+        // if(isNearPlatform)
+        //    Debug.Log("TRUE");
     }
 
     bool atMaxVelocity()

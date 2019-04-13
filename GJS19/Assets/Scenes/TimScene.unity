@@ -584,6 +584,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  terminalVelocity: -10
+  isNearPlatform: 0
 --- !u!50 &580996528
 Rigidbody2D:
   serializedVersion: 4
@@ -971,6 +973,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  terminalVelocity: -10
+  isNearPlatform: 0
 --- !u!58 &1477395384
 CircleCollider2D:
   m_ObjectHideFlags: 0
