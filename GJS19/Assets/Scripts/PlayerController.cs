@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
 
         else if ( gameObject.CompareTag("Player2") )
         {
-            Debug.Log(Input.GetAxisRaw("Player 2 Horizontal"));
             return Input.GetAxisRaw("Player 2 Horizontal");
         }
 
