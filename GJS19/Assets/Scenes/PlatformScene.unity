@@ -998,10 +998,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb58492be9bf1fe40bbde779b7d13d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  play1_platform: {fileID: 0}
+  platform_prefab: {fileID: 4136622969843793806, guid: 951e5dbe517647b49814752774634d9a,
+    type: 3}
   left_collider: {fileID: 1982398267}
   right_collider: {fileID: 1653215421}
-  scale: 1
+  gap: 80
+  player: {fileID: 580996524}
 --- !u!1 &1982398267
 GameObject:
   m_ObjectHideFlags: 0
