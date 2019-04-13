@@ -88,10 +88,10 @@ public class PlayerController : MonoBehaviour
         Vector2 rayCastPosition = transform.position;
         rayCastPosition.y += .5f;
         isNearPlatform = Physics2D.Raycast(rayCastPosition, transform.TransformDirection(Vector3.down), 1f, layerMask);
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1f, Color.yellow);
+        // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1f, Color.yellow);
 
-        if(isNearPlatform)
-            Debug.Log("TRUE");
+        // if(isNearPlatform)
+        //    Debug.Log("TRUE");
     }
 
     bool atMaxVelocity()
