@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f9407ad07184b4c905c2d9ba80bf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clip: {fileID: 7400000, guid: 85d3287192ec82f4591f14ee62641f51, type: 2}
 --- !u!95 &9099291796899937514
 Animator:
   serializedVersion: 3

@@ -6,13 +6,13 @@ public class EnemyController : MonoBehaviour
 {
     public float speed = 7;
 
-    private Rigidbody2D rigidbody;
+    private Rigidbody2D rb;
 
     private void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
 
-        rigidbody.velocity = new Vector2(0, -speed);
+        rb.velocity = new Vector2(0, -speed);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

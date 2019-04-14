@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
-    public float crumble_time = 3;
+    public AnimationClip clip;
 
     private float upper_bound = 20;
     private GameObject player;
 
+    private Animator animator;
     private bool started_crumb = false;
+    private float clip_length;
 
     private void Start()
     {
@@ -21,6 +23,9 @@ public class Destroy : MonoBehaviour
         {
             player = GameObject.FindGameObjectWithTag("Player2");
         }
+
+        animator = GetComponent<Animator>();
+        clip_length = clip.length;
     }
 
     // Update is called once per frame
@@ -43,9 +48,10 @@ public class Destroy : MonoBehaviour
     IEnumerator Crumble()
     {
         started_crumb = true;
-        Debug.Log("Detected platform and " + player + " collision");
+        animator.SetTrigger("TriggerCrumblePlat");
+        Debug.Log("Animation clip length = " + clip_length);
 
-        yield return new WaitForSeconds(crumble_time);
+        yield return new WaitForSeconds(clip_length);
 
         Destroy(gameObject);
     }
