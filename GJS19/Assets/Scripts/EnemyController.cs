@@ -17,6 +17,8 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("enemy collided with " + collision.gameObject);
+
         if (collision.gameObject.name == "Player 1")
         {
             Debug.Log("Player 1 WOOOOOOOOOOOOOOOOOOOOOOOOON yeet");
