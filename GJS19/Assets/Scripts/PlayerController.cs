@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5;
     public float terminalVelocity = -10;
-    public bool isNearPlatform;
+    public float rayLen = 1f;
+    public int coolDownSec = 10;
+    public PlayerController otherPlayer;
 
     private enum PlayerType {first, second};
 
@@ -14,32 +16,35 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D m_rigidbody;
     private float movementModifier;
     private PlayerType pType;
+    private bool canDestroy;
 
     void Awake()
     {
 		m_anim = GetComponent<Animator>();
 		m_rigidbody = GetComponent<Rigidbody2D>();
-        isNearPlatform = false;
         pType = getPlayerType();
-        Debug.Log(pType);
+        canDestroy = true;
     }
 
     void Update()
     {
+
 		movementModifier = GetMovementModifier(); 
 		Move(movementModifier);
 		Animate(movementModifier);
 
-        checkNearPlatform();
-        DestroyPlatform();
+        if (canDestroy && (Input.GetKeyDown(KeyCode.S) && pType == PlayerType.first || Input.GetKeyDown("down") && pType == PlayerType.second))
+        {
+            DestroyOtherPlatform();
+        }
     }
+
+
 
     float GetMovementModifier()
     {
         if (pType == PlayerType.first)
-        {
             return Input.GetAxisRaw("Player 1 Horizontal");
-        }
 
         else
             return Input.GetAxisRaw("Player 2 Horizontal");
@@ -56,13 +61,26 @@ public class PlayerController : MonoBehaviour
        	m_rigidbody.velocity = newVelocity;
     }
 
-    void DestroyPlatform()
+    void DestroyOtherPlatform()
     {
-        if (Input.GetKey("down"))
-            Debug.Log("destroy player 2 platform!");
 
-        if (Input.GetKey(KeyCode.S))
-            Debug.Log("destroy player 1 platform!");
+        if (!otherPlayer.canDestroyOwnPlatform())
+        {
+                canDestroy = false;
+                Debug.Log(canDestroy + "; " + gameObject.name);
+                StartCoroutine("CoolDown");
+        }
+
+    }
+
+    IEnumerator CoolDown()
+    {
+        for (float i = 0; i >= coolDownSec; i += Time.deltaTime)
+        {
+        
+        }
+        yield return new WaitForSeconds(coolDownSec);
+        canDestroy = true;
     }
 
     void Animate(float mm)
@@ -81,21 +99,26 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void checkNearPlatform()
+    bool canDestroyOwnPlatform()
     {
-        int layerMask = LayerMask.GetMask("Platform");
+        int layerMask;
+        if (pType == PlayerType.first)
+            layerMask = LayerMask.GetMask("Platform 1");
+        else
+            layerMask = LayerMask.GetMask("Platform 2");
 
         Vector2 bottomPosition = new Vector2(this.transform.position.x, GetComponent<Collider2D>().bounds.min.y);
-        isNearPlatform = Physics2D.Raycast(bottomPosition, Vector2.down, 1f, layerMask);
-        Debug.DrawRay(bottomPosition, Vector2.down * 1f, Color.yellow);
 
-        Vector2 rayCastPosition = transform.position;
-        rayCastPosition.y += .5f;
-        isNearPlatform = Physics2D.Raycast(rayCastPosition, transform.TransformDirection(Vector3.down), 1f, layerMask);
-        // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * 1f, Color.yellow);
+        RaycastHit2D hit    = Physics2D.Raycast(bottomPosition, Vector2.down, rayLen, layerMask);
+        bool isNearPlatform = Physics2D.Raycast(bottomPosition, Vector2.down, rayLen, layerMask);
+        Debug.DrawRay(bottomPosition, Vector2.down * rayLen, Color.yellow);
 
-        // if(isNearPlatform)
-        //    Debug.Log("TRUE");
+        if (isNearPlatform)
+        {
+            Destroy(hit.collider.gameObject);
+        }
+
+        return isNearPlatform;
     }
 
     bool atMaxVelocity()
