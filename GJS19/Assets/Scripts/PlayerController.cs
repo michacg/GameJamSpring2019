@@ -63,8 +63,13 @@ public class PlayerController : MonoBehaviour
 
     void DestroyOtherPlatform()
     {
+        if (otherPlayer.canDestroyOwnPlatform())
+        {
+            Debug.Log("can destroy!");
+            otherPlayer.destroyOwnPlatform();
+        }
 
-        if (!otherPlayer.canDestroyOwnPlatform())
+        else
         {
                 canDestroy = false;
                 StartCoroutine("CoolDown");
@@ -108,16 +113,26 @@ public class PlayerController : MonoBehaviour
 
         Vector2 bottomPosition = new Vector2(this.transform.position.x, GetComponent<Collider2D>().bounds.min.y);
 
-        RaycastHit2D hit    = Physics2D.Raycast(bottomPosition, Vector2.down, rayLen, layerMask);
         bool isNearPlatform = Physics2D.Raycast(bottomPosition, Vector2.down, rayLen, layerMask);
         Debug.DrawRay(bottomPosition, Vector2.down * rayLen, Color.yellow);
 
-        if (isNearPlatform)
-        {
-            Destroy(hit.collider.gameObject);
-        }
-
         return isNearPlatform;
+    }
+
+    void destroyOwnPlatform()
+    {
+        int layerMask;
+        if (pType == PlayerType.first)
+            layerMask = LayerMask.GetMask("Platform 1");
+        else
+            layerMask = LayerMask.GetMask("Platform 2");
+
+        Vector2 bottomPosition = new Vector2(this.transform.position.x, GetComponent<Collider2D>().bounds.min.y);
+
+        RaycastHit2D hit    = Physics2D.Raycast(bottomPosition, Vector2.down, rayLen, layerMask);
+        Debug.DrawRay(bottomPosition, Vector2.down * rayLen, Color.yellow);
+
+        Destroy(hit.collider.gameObject);
     }
 
     bool atMaxVelocity()
