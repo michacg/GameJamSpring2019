@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 		movementModifier = GetMovementModifier(); 
-        Debug.Log(canDestroyOwnPlatform());
+        //Debug.Log(canDestroyOwnPlatform());
 		Move(movementModifier);
 		Animate(movementModifier);
 

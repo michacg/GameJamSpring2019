@@ -75,8 +75,13 @@ public class CheckpointController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name + " is the ultimate loser haha they suck");
-
-        SceneManager.LoadScene("GameoverScene", LoadSceneMode.Single);
+        if (collision.gameObject.name.Equals("Player 1"))
+        {
+            SceneManager.LoadScene("Player2Win", LoadSceneMode.Single);
+        }
+        else if (collision.gameObject.name.Equals("Player 2"))
+        {
+            SceneManager.LoadScene("Player1Win", LoadSceneMode.Single);
+        }
     }
 }
