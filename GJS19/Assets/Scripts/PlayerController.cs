@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float movementModifier;
     private PlayerType pType;
     private bool canDestroy;
-    private bool onPlatform;
+    private bool justLanded;
 
     void Awake()
     {
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 		movementModifier = GetMovementModifier(); 
-        //Debug.Log(canDestroyOwnPlatform());
+
 		Move(movementModifier);
 		Animate(movementModifier);
 
@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
     {
         if (otherPlayer.canDestroyOwnPlatform())
         {
-            Debug.Log("can destroy!");
             otherPlayer.destroyOwnPlatform();
         }
 
@@ -93,8 +92,14 @@ public class PlayerController : MonoBehaviour
     {
 
         //ON PLATFORM
-        if (canDestroyOwnPlatform())
+        if (checkOnPlatform())
         {
+            if (justLanded)
+            {
+                m_anim.SetTrigger("TriggerLand");
+                justLanded = false;
+            }
+
             if (mm == 1)
             {
                 m_anim.SetTrigger("TriggerRLRoll");
@@ -106,20 +111,24 @@ public class PlayerController : MonoBehaviour
                 m_anim.SetTrigger("TriggerRLRoll");
                 m_SpriteRenderer.flipX = true;
             }
-        }
 
+            else
+            {
+                m_SpriteRenderer.flipX = false;
+            }
+        }
 
         //FALLING
     	else 
         {
-
+            justLanded = true;
             if (mm == 1)
             {
                 if (atMaxVelocity())
-                    m_anim.SetTrigger("TriggerRLFallAccel");
+                    m_anim.SetTrigger("TriggerRLFallTerminal");
 
                 else
-                    m_anim.SetTrigger("TriggerRLFallTerminal");
+                    m_anim.SetTrigger("TriggerRLFallAccel");
 
                 m_SpriteRenderer.flipX = false;
 
@@ -128,10 +137,10 @@ public class PlayerController : MonoBehaviour
             else if (mm == -1) 
             {
                 if (atMaxVelocity())
-                    m_anim.SetTrigger("TriggerRLFallAccel");
+                    m_anim.SetTrigger("TriggerRLFallTerminal");
 
                 else
-                    m_anim.SetTrigger("TriggerRLFallTerminal");
+                    m_anim.SetTrigger("TriggerRLFallAccel");
 
                 m_SpriteRenderer.flipX = true;
             }
@@ -139,10 +148,10 @@ public class PlayerController : MonoBehaviour
             else
             {
                 if (atMaxVelocity())
-                    m_anim.SetTrigger("TriggerFallAccel");
+                    m_anim.SetTrigger("TriggerFallTerminal");
 
                 else
-                    m_anim.SetTrigger("TriggerFallTerminal");
+                    m_anim.SetTrigger("TriggerFallAccel");
 
                 m_SpriteRenderer.flipX = false;
             }
@@ -166,8 +175,19 @@ public class PlayerController : MonoBehaviour
         return isNearPlatform;
     }
 
-    void OnCollisionEnter(Collision collision)
+    bool checkOnPlatform()
     {
+        int layerMask;
+        if (pType == PlayerType.first)
+            layerMask = LayerMask.GetMask("Platform 1");
+        else
+            layerMask = LayerMask.GetMask("Platform 2");
+
+        Vector2 bottomPosition = new Vector2(this.transform.position.x, GetComponent<Collider2D>().bounds.min.y);
+
+        bool isOnPlatform = Physics2D.Raycast(bottomPosition, Vector2.down, .1f, layerMask);
+
+        return isOnPlatform;
         
     }
 
