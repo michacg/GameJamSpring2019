@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Destroy : MonoBehaviour
 {
+    public float crumble_time = 3;
+
     private float upper_bound = 20;
     private GameObject player;
+
+    private bool started_crumb = false;
 
     private void Start()
     {
@@ -26,5 +30,23 @@ public class Destroy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!started_crumb && collision.gameObject.tag.StartsWith("Player"))
+        {
+            StartCoroutine(Crumble());
+        }
+    }
+
+    IEnumerator Crumble()
+    {
+        started_crumb = true;
+        Debug.Log("Detected platform and " + player + " collision");
+
+        yield return new WaitForSeconds(crumble_time);
+
+        Destroy(gameObject);
     }
 }
