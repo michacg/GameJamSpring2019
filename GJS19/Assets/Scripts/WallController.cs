@@ -12,7 +12,6 @@ public class WallController : MonoBehaviour
     void Start()
     {
         height = Mathf.Floor(gameObject.GetComponent<Renderer>().bounds.size.y);
-        Debug.Log("Wall heights = " + height);
 
         if (gameObject.transform.root.name == "Left Screen")
         {

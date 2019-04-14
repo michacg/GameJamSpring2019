@@ -39,7 +39,7 @@ public class SpawnPlatforms : MonoBehaviour
         }
 
         float check_probability = Random.Range(0f, 1f);
-        Debug.Log("Generated Probability = " + check_probability + "; Threshold = " + probability);
+        // Debug.Log("Generated Probability = " + check_probability + "; Threshold = " + probability);
         
         if (check_probability <= probability)
         {
