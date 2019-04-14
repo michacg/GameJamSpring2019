@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5;
     public float terminalVelocity = -10;
     public float rayLen = 1f;
-    public int coolDownSec = 10;
+    public int coolDownSec = 4;
     public PlayerController otherPlayer;
 
     private enum PlayerType {first, second};
