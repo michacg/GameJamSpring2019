@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
         if (!otherPlayer.canDestroyOwnPlatform())
         {
                 canDestroy = false;
-                Debug.Log(canDestroy + "; " + gameObject.name);
                 StartCoroutine("CoolDown");
         }
 
