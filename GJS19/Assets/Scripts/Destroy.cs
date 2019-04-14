@@ -49,7 +49,6 @@ public class Destroy : MonoBehaviour
     {
         started_crumb = true;
         animator.SetTrigger("TriggerCrumblePlat");
-        Debug.Log("Animation clip length = " + clip_length);
 
         yield return new WaitForSeconds(clip_length);
 

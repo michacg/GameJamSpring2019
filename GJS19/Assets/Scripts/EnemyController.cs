@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 {
@@ -17,13 +18,17 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("enemy collided with " + collision.gameObject);
+
         if (collision.gameObject.name == "Player 1")
         {
             Debug.Log("Player 1 WOOOOOOOOOOOOOOOOOOOOOOOOON yeet");
+            SceneManager.LoadScene("GameoverScene", LoadSceneMode.Single);
         }
         else if (collision.gameObject.name == "Player 2")
         {
             Debug.Log("Player 2 is winner wooohoooooo");
+            SceneManager.LoadScene("GameoverScene", LoadSceneMode.Single);
         }
     }
 }
