@@ -31,10 +31,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-		movementModifier = GetMovementModifier(); 
-
-		Move(movementModifier);
+		movementModifier = GetMovementModifier();
+        Debug.Log(movementModifier);
 		Animate(movementModifier);
+        Move(movementModifier);
 
         if (canDestroy && (Input.GetKeyDown(KeyCode.S) && pType == PlayerType.first || Input.GetKeyDown("down") && pType == PlayerType.second))
         {
@@ -100,35 +100,60 @@ public class PlayerController : MonoBehaviour
                 justLanded = false;
             }
 
+            /*
             if (mm == 1)
             {
                 m_anim.SetTrigger("TriggerRLRoll");
+                Debug.Log("TriggerRLRoll");
                 m_SpriteRenderer.flipX = false;
             }
 
             else if (mm == -1)
             {
                 m_anim.SetTrigger("TriggerRLRoll");
+                Debug.Log("TriggerRLRoll");
                 m_SpriteRenderer.flipX = true;
             }
-
+            
             else
             {
-                m_SpriteRenderer.flipX = false;
+                Debug.Log("idle");
             }
+            */
         }
 
         //FALLING
     	else 
         {
             justLanded = true;
-            if (mm == 1)
+            if (mm == 0)
             {
                 if (atMaxVelocity())
-                    m_anim.SetTrigger("TriggerRLFallTerminal");
+                {
+                    m_anim.SetTrigger("TriggerFallTerminal");
+                    Debug.Log("TriggerFallTerminal");
+                }
 
                 else
+                {
+                    m_anim.SetTrigger("TriggerFallAccel");
+                    Debug.Log("TriggerFallAccel");
+                }
+            }
+
+            else if (mm == 1)
+            {
+                if (atMaxVelocity())
+                {
+                    m_anim.SetTrigger("TriggerRLFallTerminal");
+                    Debug.Log("TriggerRLFALLterminal");
+                }
+
+                else
+                {
                     m_anim.SetTrigger("TriggerRLFallAccel");
+                    Debug.Log("TriggerRLFallaccel");
+                }
 
                 m_SpriteRenderer.flipX = false;
 
@@ -137,24 +162,20 @@ public class PlayerController : MonoBehaviour
             else if (mm == -1) 
             {
                 if (atMaxVelocity())
+                {
                     m_anim.SetTrigger("TriggerRLFallTerminal");
+                    Debug.Log("TriggerRLfallterminal");
+                }
 
                 else
+                {
                     m_anim.SetTrigger("TriggerRLFallAccel");
+                    Debug.Log("TriggerRLFallAccel");
+                }
 
                 m_SpriteRenderer.flipX = true;
             }
 
-            else
-            {
-                if (atMaxVelocity())
-                    m_anim.SetTrigger("TriggerFallTerminal");
-
-                else
-                    m_anim.SetTrigger("TriggerFallAccel");
-
-                m_SpriteRenderer.flipX = false;
-            }
         }
 
     }
