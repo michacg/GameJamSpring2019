@@ -9,6 +9,7 @@ TagManager:
   - Platform1
   - Platform2
   - Wall
+  - Platform
   layers:
   - Default
   - TransparentFX
