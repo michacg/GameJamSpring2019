@@ -867,7 +867,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   terminalVelocity: -10
-  isNearPlatform: 0
+  rayLen: 1
+  coolDownSec: 10
+  otherPlayer: {fileID: 1477395383}
 --- !u!50 &580996528
 Rigidbody2D:
   serializedVersion: 4
@@ -1909,7 +1911,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   terminalVelocity: -10
-  isNearPlatform: 0
+  rayLen: 1
+  coolDownSec: 10
+  otherPlayer: {fileID: 580996527}
 --- !u!58 &1477395384
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2501,6 +2505,11 @@ PrefabInstance:
       propertyPath: player2_icon
       value: 
       objectReference: {fileID: 300275468}
+    - target: {fileID: 4817097984157039304, guid: 1c963df7a3999394cbbd87a278264b29,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1919050716}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c963df7a3999394cbbd87a278264b29, type: 3}
 --- !u!1001 &5506465050929729800

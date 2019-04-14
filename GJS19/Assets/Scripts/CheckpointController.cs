@@ -48,13 +48,13 @@ public class CheckpointController : MonoBehaviour
         /* Change player 1 icon position */
         float player1_icon_x = player1_icon_rt.anchoredPosition.x;
         float player1_icon_y = player1_icon_start - ((total_distance - player1_distance) / total_distance) * screen_height;
-        Debug.Log("Distance = " + player1_distance / total_distance + "; New y position = " + player1_icon_y);
+        // Debug.Log("Distance = " + player1_distance / total_distance + "; New y position = " + player1_icon_y);
         player1_icon_rt.anchoredPosition = new Vector2(player1_icon_x, player1_icon_y);
 
         /* Change player 2 icon position */
         float player2_icon_x = player2_icon_rt.anchoredPosition.x;
         float player2_icon_y = player2_icon_start - ((total_distance - player2_distance) / total_distance) * screen_height;
-        Debug.Log("Distance = " + player2_distance / total_distance + "; New y position = " + player2_icon_y);
+        // Debug.Log("Distance = " + player2_distance / total_distance + "; New y position = " + player2_icon_y);
         player2_icon_rt.anchoredPosition = new Vector2(player2_icon_x, player2_icon_y);
     }
 
