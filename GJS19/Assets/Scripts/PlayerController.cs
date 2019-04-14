@@ -12,14 +12,17 @@ public class PlayerController : MonoBehaviour
 
     private enum PlayerType {first, second};
 
+    private SpriteRenderer m_SpriteRenderer;
     private Animator m_anim;
     private Rigidbody2D m_rigidbody;
     private float movementModifier;
     private PlayerType pType;
     private bool canDestroy;
+    private bool onPlatform;
 
     void Awake()
     {
+        m_SpriteRenderer = GetComponent<SpriteRenderer>();
 		m_anim = GetComponent<Animator>();
 		m_rigidbody = GetComponent<Rigidbody2D>();
         pType = getPlayerType();
@@ -28,8 +31,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
 		movementModifier = GetMovementModifier(); 
+        Debug.Log(canDestroyOwnPlatform());
 		Move(movementModifier);
 		Animate(movementModifier);
 
@@ -38,7 +41,6 @@ public class PlayerController : MonoBehaviour
             DestroyOtherPlatform();
         }
     }
-
 
 
     float GetMovementModifier()
@@ -90,15 +92,60 @@ public class PlayerController : MonoBehaviour
     void Animate(float mm)
     {
 
-    	if (mm == 1)
-    		//m_anim.SetTrigger("GoRight");
-    	
-    	if (mm == -1)
-    		//m_anim.SetTrigger("GoLeft");
-
-        if (atMaxVelocity())
+        //ON PLATFORM
+        if (canDestroyOwnPlatform())
         {
-            //m_anim.SetTrigger("MaxVelocity");
+            if (mm == 1)
+            {
+                m_anim.SetTrigger("TriggerRLRoll");
+                m_SpriteRenderer.flipX = false;
+            }
+
+            else if (mm == -1)
+            {
+                m_anim.SetTrigger("TriggerRLRoll");
+                m_SpriteRenderer.flipX = true;
+            }
+        }
+
+
+        //FALLING
+    	else 
+        {
+
+            if (mm == 1)
+            {
+                if (atMaxVelocity())
+                    m_anim.SetTrigger("TriggerRLFallAccel");
+
+                else
+                    m_anim.SetTrigger("TriggerRLFallTerminal");
+
+                m_SpriteRenderer.flipX = false;
+
+            }
+
+            else if (mm == -1) 
+            {
+                if (atMaxVelocity())
+                    m_anim.SetTrigger("TriggerRLFallAccel");
+
+                else
+                    m_anim.SetTrigger("TriggerRLFallTerminal");
+
+                m_SpriteRenderer.flipX = true;
+            }
+
+            else
+            {
+                if (atMaxVelocity())
+                    m_anim.SetTrigger("TriggerFallAccel");
+
+                else
+                    m_anim.SetTrigger("TriggerFallTerminal");
+
+                m_SpriteRenderer.flipX = false;
+            }
         }
 
     }
@@ -117,6 +164,11 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(bottomPosition, Vector2.down * rayLen, Color.yellow);
 
         return isNearPlatform;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        
     }
 
     void destroyOwnPlatform()
