@@ -14,8 +14,10 @@ public class PlayerController : MonoBehaviour
     public GameObject rightUI;
     public GameObject breakUI;
 
-    public SpriteRenderer l_sprite;
-    public SpriteRenderer r_sprite;
+    public Sprite l_normal;
+    public Sprite r_normal;
+    public Sprite l_down;
+    public Sprite r_down;
 
     private enum PlayerType {first, second};
 
@@ -41,9 +43,6 @@ public class PlayerController : MonoBehaviour
         r_image = rightUI.GetComponent<Image>();
         b_image = breakUI.GetComponent<Image>();
 
-        l_sprite = GetComponent<SpriteRenderer>();
-        r_sprite = GetComponent<SpriteRenderer>();
-
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
 		m_anim = GetComponent<Animator>();
 		m_rigidbody = GetComponent<Rigidbody2D>();
@@ -57,14 +56,22 @@ public class PlayerController : MonoBehaviour
     {
 		movementModifier = GetMovementModifier();
 
-        if (mm == 1)
+        if (movementModifier == 1)
         {
-
+            r_image.sprite = r_down;
+            l_image.sprite = l_normal;
         }
 
-        else if (mm == -1)
+        else if (movementModifier == -1)
         {
-            
+            l_image.sprite = l_down;
+            r_image.sprite = r_normal;
+        }
+
+        else
+        {
+            r_image.sprite = r_normal;
+            l_image.sprite = l_normal;
         }
         
 		Animate(movementModifier);

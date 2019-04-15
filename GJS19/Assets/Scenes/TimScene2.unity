@@ -589,7 +589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &303965341
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1387,6 +1387,10 @@ MonoBehaviour:
   leftUI: {fileID: 435561271}
   rightUI: {fileID: 438541264}
   breakUI: {fileID: 1963290573}
+  l_normal: {fileID: 21300000, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
+  r_normal: {fileID: 21300004, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
+  l_down: {fileID: 21300006, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
+  r_down: {fileID: 21300010, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
 --- !u!50 &580996528
 Rigidbody2D:
   serializedVersion: 4
@@ -3068,6 +3072,10 @@ MonoBehaviour:
   leftUI: {fileID: 2028301868}
   rightUI: {fileID: 1099505927}
   breakUI: {fileID: 1618987463}
+  l_normal: {fileID: 21300000, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
+  r_normal: {fileID: 21300004, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
+  l_down: {fileID: 21300012, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
+  r_down: {fileID: 21300014, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
 --- !u!58 &1477395384
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4211,6 +4219,16 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1919050716}
+    - target: {fileID: 4817097984157039304, guid: 1c963df7a3999394cbbd87a278264b29,
+        type: 3}
+      propertyPath: monster
+      value: 
+      objectReference: {fileID: 303965340}
+    - target: {fileID: 4817097984157039304, guid: 1c963df7a3999394cbbd87a278264b29,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c963df7a3999394cbbd87a278264b29, type: 3}
 --- !u!1001 &5506465050929729800
