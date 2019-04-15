@@ -589,7 +589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &303965341
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1297,6 +1297,7 @@ GameObject:
   - component: {fileID: 580996528}
   - component: {fileID: 580996527}
   - component: {fileID: 580996529}
+  - component: {fileID: 580996530}
   m_Layer: 8
   m_Name: Player 1
   m_TagString: Player1
@@ -1383,6 +1384,9 @@ MonoBehaviour:
   rayLen: 1
   coolDownSec: 10
   otherPlayer: {fileID: 1477395383}
+  leftUI: {fileID: 435561271}
+  rightUI: {fileID: 438541264}
+  breakUI: {fileID: 1963290573}
 --- !u!50 &580996528
 Rigidbody2D:
   serializedVersion: 4
@@ -1420,6 +1424,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!95 &580996530
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580996524}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8919a4f2bc0c23947aaeef3a70162723, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &643387863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2934,6 +2957,7 @@ GameObject:
   - component: {fileID: 1477395382}
   - component: {fileID: 1477395383}
   - component: {fileID: 1477395384}
+  - component: {fileID: 1477395385}
   m_Layer: 9
   m_Name: Player 2
   m_TagString: Player2
@@ -3041,6 +3065,9 @@ MonoBehaviour:
   rayLen: 1
   coolDownSec: 10
   otherPlayer: {fileID: 580996527}
+  leftUI: {fileID: 2028301868}
+  rightUI: {fileID: 1099505927}
+  breakUI: {fileID: 1618987463}
 --- !u!58 &1477395384
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3057,6 +3084,25 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.1
+--- !u!95 &1477395385
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1477395379}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b5798d4c72c591640906d0597007ace3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1586390003
 GameObject:
   m_ObjectHideFlags: 0
@@ -3707,13 +3753,13 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300002, guid: b50bc74789a7ef9439d616bfeeb5725f, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 2
   m_UseSpriteMesh: 0
 --- !u!222 &1963290576
 CanvasRenderer:
@@ -4083,7 +4129,7 @@ PrefabInstance:
     - target: {fileID: 4817097984157039302, guid: 1c963df7a3999394cbbd87a278264b29,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1000
       objectReference: {fileID: 0}
     - target: {fileID: 4817097984157039302, guid: 1c963df7a3999394cbbd87a278264b29,
         type: 3}

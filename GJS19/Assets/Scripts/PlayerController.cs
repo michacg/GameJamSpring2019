@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,30 +10,47 @@ public class PlayerController : MonoBehaviour
     public float rayLen = 1f;
     public int coolDownSec = 4;
     public PlayerController otherPlayer;
+    public GameObject leftUI;
+    public GameObject rightUI;
+    public GameObject breakUI;
 
     private enum PlayerType {first, second};
 
     private SpriteRenderer m_SpriteRenderer;
+
+    private Image l_image;
+    private Image r_image;
+    private Image b_image;
+
     private Animator m_anim;
     private Rigidbody2D m_rigidbody;
     private float movementModifier;
     private PlayerType pType;
     private bool canDestroy;
     private bool justLanded;
+    private bool isCooldown;
+
+    private float cooldownCount;
 
     void Awake()
     {
+        l_image = leftUI.GetComponent<Image>();
+        r_image = rightUI.GetComponent<Image>();
+        b_image = breakUI.GetComponent<Image>();
+
         m_SpriteRenderer = GetComponent<SpriteRenderer>();
 		m_anim = GetComponent<Animator>();
 		m_rigidbody = GetComponent<Rigidbody2D>();
         pType = getPlayerType();
         canDestroy = true;
+        isCooldown = false;
+        cooldownCount = 0f;
     }
 
     void Update()
     {
 		movementModifier = GetMovementModifier();
-        Debug.Log(movementModifier);
+        
 		Animate(movementModifier);
         Move(movementModifier);
 
@@ -40,6 +58,20 @@ public class PlayerController : MonoBehaviour
         {
             DestroyOtherPlatform();
         }
+
+        if (isCooldown)
+        {
+            cooldownCount += Time.deltaTime/60;
+            b_image.fillAmount += (cooldownCount / coolDownSec);
+        }
+
+        else
+        {
+            cooldownCount = 0;
+            b_image.fillAmount = 1;
+            isCooldown = false;
+        }
+
     }
 
 
@@ -73,6 +105,7 @@ public class PlayerController : MonoBehaviour
         else
         {
                 canDestroy = false;
+                isCooldown = true;
                 StartCoroutine("CoolDown");
         }
 
@@ -80,9 +113,10 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator CoolDown()
     {
+        b_image.fillAmount = 0;
+        
         for (float i = 0; i >= coolDownSec; i += Time.deltaTime)
         {
-        
         }
         yield return new WaitForSeconds(coolDownSec);
         canDestroy = true;
@@ -99,27 +133,6 @@ public class PlayerController : MonoBehaviour
                 m_anim.SetTrigger("TriggerLand");
                 justLanded = false;
             }
-
-            /*
-            if (mm == 1)
-            {
-                m_anim.SetTrigger("TriggerRLRoll");
-                Debug.Log("TriggerRLRoll");
-                m_SpriteRenderer.flipX = false;
-            }
-
-            else if (mm == -1)
-            {
-                m_anim.SetTrigger("TriggerRLRoll");
-                Debug.Log("TriggerRLRoll");
-                m_SpriteRenderer.flipX = true;
-            }
-            
-            else
-            {
-                Debug.Log("idle");
-            }
-            */
         }
 
         //FALLING
@@ -131,13 +144,11 @@ public class PlayerController : MonoBehaviour
                 if (atMaxVelocity())
                 {
                     m_anim.SetTrigger("TriggerFallTerminal");
-                    Debug.Log("TriggerFallTerminal");
                 }
 
                 else
                 {
                     m_anim.SetTrigger("TriggerFallAccel");
-                    Debug.Log("TriggerFallAccel");
                 }
             }
 
@@ -146,13 +157,11 @@ public class PlayerController : MonoBehaviour
                 if (atMaxVelocity())
                 {
                     m_anim.SetTrigger("TriggerRLFallTerminal");
-                    Debug.Log("TriggerRLFALLterminal");
                 }
 
                 else
                 {
                     m_anim.SetTrigger("TriggerRLFallAccel");
-                    Debug.Log("TriggerRLFallaccel");
                 }
 
                 m_SpriteRenderer.flipX = false;
@@ -162,15 +171,13 @@ public class PlayerController : MonoBehaviour
             else if (mm == -1) 
             {
                 if (atMaxVelocity())
-                {
+                {   
                     m_anim.SetTrigger("TriggerRLFallTerminal");
-                    Debug.Log("TriggerRLfallterminal");
                 }
 
                 else
                 {
                     m_anim.SetTrigger("TriggerRLFallAccel");
-                    Debug.Log("TriggerRLFallAccel");
                 }
 
                 m_SpriteRenderer.flipX = true;
