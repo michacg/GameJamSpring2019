@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public Sprite r_normal;
     public Sprite l_down;
     public Sprite r_down;
+    //public Sprite 
 
     private enum PlayerType {first, second};
 
@@ -130,6 +131,7 @@ public class PlayerController : MonoBehaviour
                 canDestroy = false;
                 isCooldown = true;
                 StartCoroutine("CoolDown");
+                isCooldown = false;
         }
 
     }
@@ -255,6 +257,7 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D hit    = Physics2D.Raycast(bottomPosition, Vector2.down, rayLen, layerMask);
         Debug.DrawRay(bottomPosition, Vector2.down * rayLen, Color.yellow);
 
+        hit.collider.gameObject.GetComponent<Destroy>().canBeDestroyed = true;
         Destroy(hit.collider.gameObject);
     }
 

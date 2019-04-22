@@ -5,7 +5,7 @@ using UnityEngine;
 public class Destroy : MonoBehaviour
 {
     public AnimationClip clip;
-
+    public bool canBeDestroyed = false;
     private float upper_bound = 20;
     private GameObject player;
 
