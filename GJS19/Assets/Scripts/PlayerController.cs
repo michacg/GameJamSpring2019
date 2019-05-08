@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 canDestroy = false;
                 isCooldown = true;
                 StartCoroutine("CoolDown");
-                isCooldown = false;
+                //isCooldown = false;
         }
 
     }
@@ -145,6 +145,7 @@ public class PlayerController : MonoBehaviour
         }
         yield return new WaitForSeconds(coolDownSec);
         canDestroy = true;
+        isCooldown = false;
     }
 
     void Animate(float mm)
